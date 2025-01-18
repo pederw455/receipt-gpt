@@ -66,7 +66,14 @@ def delete():
 @app.route("/generate_recipes", methods=["POST"])
 def generate_recipes():
     try:
-        recipe_html = find_recipes()
+        # Retrieve meal type and servings from the form
+        meal_type = request.form.get("meal_type")
+        servings = request.form.get("servings")
+
+        # Generate the recipe using the new parameters
+        recipe_html = find_recipes(meal_type, servings)
+
+        # Read ingredients from CSV
         with open(CSV_FILE, mode="r") as file:
             reader = csv.DictReader(file)
             ingredients = list(reader)
@@ -76,7 +83,8 @@ def generate_recipes():
         flash(f"Error generating recipes: {str(e)}", "danger")
         return redirect(url_for("home"))
 
-def find_recipes():
+
+def find_recipes(meal_type, servings):
     # Read ingredients from CSV
     with open(CSV_FILE, mode="r") as file:
         rows = list(csv.reader(file))
@@ -86,7 +94,8 @@ def find_recipes():
     I have the following ingredients available:
     {rows}
 
-    Please provide a single recipe I can make using these ingredients. You don't need to use all ingredients.
+    I want to prepare a {meal_type} for {servings} servings.
+    Please provide a single recipe that fits these criteria. You don't need to use all ingredients.
     The recipe should include:
 
     1. A clear title for the dish.
@@ -94,6 +103,11 @@ def find_recipes():
     3. Step-by-step instructions for preparation.
     4. Each step should start with a numbered heading followed by details as plain text or subpoints.
     5. The output must be in Markdown format.
+
+    The recipe should:
+    - Be realistic and appropriate for {servings} servings. Adjust ingredient quantities accordingly.
+    - If the available ingredients are insufficient for the required servings, clearly state which ingredients are missing or insufficient.
+    - Suggest what additional ingredients and quantities are needed to meet the requirement for {servings} servings.
 
     Ensure the subpoints are indented and do not continue the main numbering.
     Be realistic and don't invent recipes. If it doesn't exist, return that you didn't find anything.
@@ -113,6 +127,7 @@ def find_recipes():
     # Convert Markdown to HTML
     html_string = markdown.markdown(saved_string, extensions=['extra', 'sane_lists'])
     return html_string
+
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -64,9 +64,32 @@
         <section class="recipe-suggestions">
             {% if ingredients %}
                 <!-- Recipe Form -->
-                <form method="POST" action="{{ url_for('generate_recipes') }}" id="recipe-form">
-                    <button type="submit" class="btn btn-primary" id="find-recipe-btn">Find Recipe!</button>
-                </form>                
+                <h2>Find Your Recipe</h2>
+                <form method="POST" action="{{ url_for('generate_recipes') }}" id="recipe-form" class="form-container">
+                    <div class="form-group">
+                        <select id="meal_type" name="meal_type" class="form-control" required>
+                            <option value="" disabled selected>Select meal type</option>
+                            <option value="breakfast">Breakfast</option>
+                            <option value="lunch">Lunch</option>
+                            <option value="dinner">Dinner</option>
+                            <option value="snack">Snack</option>
+                        </select>
+                    </div>
+                
+                    <div class="form-group">
+                        <select id="servings" name="servings" class="form-control" required>
+                            <option value="" disabled selected>Select number of servings</option>
+                            {% for i in range(1, 9) %}
+                            <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary btn-lg" id="find-recipe-btn">Find Recipe!</button>
+                    </div>
+                </form>
+                            
         
                 <!-- Loading Indicator -->
                 <div id="loading-indicator" style="display: none; margin-top: 20px;">

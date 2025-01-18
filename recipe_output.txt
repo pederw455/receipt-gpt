@@ -1,27 +1,36 @@
-```json
-{
-  "recipe": "# Apple Pancakes\n\n## Ingredients\n- 2 apples, peeled, cored, and chopped\n- 20 dl milk\n- 200 grams flour\n- 2 eggs\n\n## Instructions\n1. In a mixing bowl, combine the flour and milk to form a smooth batter.\n2. Beat in the eggs until well incorporated.\n3. Fold in the chopped apples.\n4. Heat a non-stick frying pan over medium heat and lightly grease it.\n5. Pour a ladle full of batter onto the pan and cook the pancake until bubbles form on the surface, then flip and cook the other side until golden brown.\n6. Repeat with the remaining batter.\n7. Serve warm and enjoy your delicious apple pancakes!",
-  "ingredients_used": [
-    {
-      "name": "apple",
-      "quantity": 2.0,
-      "unit": "pieces"
-    },
-    {
-      "name": "milk",
-      "quantity": 20.0,
-      "unit": "dl"
-    },
-    {
-      "name": "flour",
-      "quantity": 200.0,
-      "unit": "grams"
-    },
-    {
-      "name": "egg",
-      "quantity": 2.0,
-      "unit": "pieces"
-    }
-  ]
-}
-```
+I'm sorry, but it looks like the ingredients you have may not be sufficient to create a recognizable breakfast dish for 8 servings. However, I can suggest a simple dish using the ingredients you do have, in case you can obtain the additional ingredients:
+
+### French Toast (Insufficient Ingredients)
+
+#### Ingredients
+- 4 eggs (you have enough)
+- 20 dl milk (sufficient, but ensure you have enough for soaking the bread)
+
+Currently missing or insufficient ingredients:
+- **Bread**: Typically, you would need about 16 slices of bread for 8 servings of French toast.
+- **Butter**: For frying
+- **Syrup or powdered sugar**: For serving
+- **Cinnamon or vanilla extract** (optional): For added flavor
+
+#### Preparation Steps
+
+1. **Prepare the Mixture**
+   - In a large bowl, whisk together the eggs and milk until fully combined.
+   - Optionally, add a dash of cinnamon and a teaspoon of vanilla extract for extra flavor.
+
+2. **Soak the Bread**
+   - Dip each slice of bread into the egg mixture, ensuring both sides are fully coated. Let the bread soak for a few seconds to absorb the mixture.
+
+3. **Cook the Toast**
+   - Heat a frying pan over medium heat and add a small amount of butter.
+   - Place the soaked bread slices into the pan and cook until golden brown on both sides.
+
+4. **Serve**
+   - Serve the French toast with syrup or powdered sugar.
+   - Optionally, you can add fresh apple slices or other fruits on top for added flavor.
+
+### Alternative Suggestions:
+- **Omelet or Scrambled Eggs:** With the available eggs, milk, and apples, you can create creative omelets or scrambled eggs, possibly including apples as a unique twist. You would still need additional ingredients for 8 servings.
+- **Smoothies:** Utilize the milk and apples in a smoothie if additional fruits or a supplement like yogurt is available.
+
+Unfortunately, without the required bread and additional ingredients, it's challenging to create a typical breakfast recipe for 8 servings with what is currently available. Consider acquiring the missing ingredients for a full dish.
