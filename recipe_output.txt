@@ -1,0 +1,27 @@
+```json
+{
+  "recipe": "# Apple Pancakes\n\n## Ingredients\n- 2 apples, peeled, cored, and chopped\n- 20 dl milk\n- 200 grams flour\n- 2 eggs\n\n## Instructions\n1. In a mixing bowl, combine the flour and milk to form a smooth batter.\n2. Beat in the eggs until well incorporated.\n3. Fold in the chopped apples.\n4. Heat a non-stick frying pan over medium heat and lightly grease it.\n5. Pour a ladle full of batter onto the pan and cook the pancake until bubbles form on the surface, then flip and cook the other side until golden brown.\n6. Repeat with the remaining batter.\n7. Serve warm and enjoy your delicious apple pancakes!",
+  "ingredients_used": [
+    {
+      "name": "apple",
+      "quantity": 2.0,
+      "unit": "pieces"
+    },
+    {
+      "name": "milk",
+      "quantity": 20.0,
+      "unit": "dl"
+    },
+    {
+      "name": "flour",
+      "quantity": 200.0,
+      "unit": "grams"
+    },
+    {
+      "name": "egg",
+      "quantity": 2.0,
+      "unit": "pieces"
+    }
+  ]
+}
+```

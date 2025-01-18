@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ingredient Finder</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-container">
+                <img src="{{ url_for('static', filename='images/chef_robot_normal.png') }}" alt="Logo" class="header-logo">
+                <div>
+                    <h1>Recipes Finder</h1>
+                    <p>Add your ingredients and find recipes you can make!</p>
+                </div>
+            </div>
+        </header>
+        
+
+        <!-- Add Ingredients Section -->
+        <section class="add-ingredients">
+            <h2>Add Ingredients</h2>
+            <form method="POST" action="{{ url_for('home') }}" class="form-container">
+                <div class="form-group">
+                    <input type="text" id="ingredient" name="ingredient" placeholder="Ingredient name" required>
+                </div>
+                <div class="form-group">
+                    <input type="number" id="quantity" name="quantity" step="0.1" placeholder="Quantity" required>
+                </div>
+                <div class="form-group">
+                    <select id="unit" name="unit" required>
+                        <option value="" disabled selected>Select unit</option>
+                        <option value="grams">grams</option>
+                        <option value="dl">dl</option>
+                        <option value="pieces">pieces</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Ingredient</button>
+            </form>
+        </section>
+
+        <h2>Ingredients</h2>
+        <ul class="list">
+            {% if ingredients %}
+                {% for ingredient in ingredients %}
+                <li class="list-item">
+                    <form method="POST" action="{{ url_for('delete') }}" class="delete-form">
+                        <input type="hidden" name="index" value="{{ loop.index0 }}">
+                        <button type="submit" class="btn btn-danger">✖</button>
+                    </form>
+                    <div class="ingredient-details">
+                        <strong>{{ ingredient["Ingredient"] }}</strong> - 
+                        {{ ingredient["Quantity"] }} {{ ingredient["Unit"] }}
+                    </div>
+                </li>                
+                {% endfor %}
+            {% else %}
+                <li>No ingredients added yet.</li>
+            {% endif %}
+        </ul>
+        
+
+        <section class="recipe-suggestions">
+            {% if ingredients %}
+                <!-- Recipe Form -->
+                <form method="POST" action="{{ url_for('generate_recipes') }}" id="recipe-form">
+                    <button type="submit" class="btn btn-primary" id="find-recipe-btn">Find Recipe!</button>
+                </form>                
+        
+                <!-- Loading Indicator -->
+                <div id="loading-indicator" style="display: none; margin-top: 20px;">
+                    <div class="loader-container">
+                        <img src="{{ url_for('static', filename='images/chef_robot_reading.png') }}" alt="Loading..." class="loading-image">
+                        <p>Loading your recipe, please wait...</p>
+                    </div>
+                </div>
+            {% endif %}
+        
+            <!-- Recipe Display -->
+            {% if recipe_html %}
+                <div class="recipe-content">
+                    {{ recipe_html|safe }}
+                </div>
+            {% endif %}
+        </section>
+        
+        
+
+    </div>
+</body>
+</html>
+
+<script>
+    document.getElementById('recipe-form').addEventListener('submit', function () {
+        // Show the loading indicator
+        document.getElementById('loading-indicator').style.display = 'block';
+
+        // Disable the button to prevent multiple submissions
+        document.getElementById('find-recipe-btn').disabled = true;
+    });
+</script>
+
+
+
