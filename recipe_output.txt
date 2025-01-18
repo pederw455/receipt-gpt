@@ -1,36 +1,67 @@
-I'm sorry, but it looks like the ingredients you have may not be sufficient to create a recognizable breakfast dish for 8 servings. However, I can suggest a simple dish using the ingredients you do have, in case you can obtain the additional ingredients:
+**Title: Cheese and Chicken Breakfast Sandwich**
 
-### French Toast (Insufficient Ingredients)
+**Ingredients:**
 
-#### Ingredients
-- 4 eggs (you have enough)
-- 20 dl milk (sufficient, but ensure you have enough for soaking the bread)
+1. Cheese - 50 grams
+2. Egg - 1 piece
+3. Salt - a pinch
+4. Chicken - 200 grams (you may want to use only part of this)
+5. Bread - 4 pieces (you will use 3 for the sandwiches)
 
-Currently missing or insufficient ingredients:
-- **Bread**: Typically, you would need about 16 slices of bread for 8 servings of French toast.
-- **Butter**: For frying
-- **Syrup or powdered sugar**: For serving
-- **Cinnamon or vanilla extract** (optional): For added flavor
+**Instructions:**
 
-#### Preparation Steps
+1. **Preparation of Chicken:**
+   - Cut the chicken into thin slices or small pieces.
+   - Season the chicken slices with a pinch of salt and pepper (from available seasonings).
+   - In a pan, add a little oil and heat it over medium heat.
+   - Cook the chicken slices until they are golden brown and fully cooked, approximately 5-7 minutes. Remove from heat and set aside.
 
-1. **Prepare the Mixture**
-   - In a large bowl, whisk together the eggs and milk until fully combined.
-   - Optionally, add a dash of cinnamon and a teaspoon of vanilla extract for extra flavor.
+2. **Preparing the Egg:**
+   - Break the egg into a bowl, adding a pinch of salt and any preferred seasoning.
+   - Beat the egg until the yolk and whites are well combined.
+   - In a frying pan, add a little oil and pour in the beaten egg to make a simple omelette.
+   - Cook on medium heat for 2-3 minutes per side, or until the egg is set. Remove and set aside.
 
-2. **Soak the Bread**
-   - Dip each slice of bread into the egg mixture, ensuring both sides are fully coated. Let the bread soak for a few seconds to absorb the mixture.
+3. **Assembling the Sandwich:**
+   - Lightly toast the bread pieces in a toaster or in a pan.
+   - For each of the 3 sandwiches, lay down one piece of toasted bread.
+   - Add a layer of cooked chicken slices on top of each bread piece.
+   - Cut the cooked omelette into three portions, and place one portion on top of the chicken in each sandwich.
+   - Grate or slice the cheese and evenly distribute it over the omelette on each sandwich.
+   - Top each sandwich with a second piece of toasted bread.
 
-3. **Cook the Toast**
-   - Heat a frying pan over medium heat and add a small amount of butter.
-   - Place the soaked bread slices into the pan and cook until golden brown on both sides.
+4. **Melting the Cheese:**
+   - If needed, place the assembled sandwiches back in the pan over low heat, cover, and let the cheese melt. This should take only a couple of minutes.
+   - Serve hot and enjoy!
 
-4. **Serve**
-   - Serve the French toast with syrup or powdered sugar.
-   - Optionally, you can add fresh apple slices or other fruits on top for added flavor.
-
-### Alternative Suggestions:
-- **Omelet or Scrambled Eggs:** With the available eggs, milk, and apples, you can create creative omelets or scrambled eggs, possibly including apples as a unique twist. You would still need additional ingredients for 8 servings.
-- **Smoothies:** Utilize the milk and apples in a smoothie if additional fruits or a supplement like yogurt is available.
-
-Unfortunately, without the required bread and additional ingredients, it's challenging to create a typical breakfast recipe for 8 servings with what is currently available. Consider acquiring the missing ingredients for a full dish.
+```json
+{
+    "ingredients_used": [
+        {
+            "name": "cheese",
+            "quantity": "50",
+            "unit": "grams"
+        },
+        {
+            "name": "egg",
+            "quantity": "1",
+            "unit": "pieces"
+        },
+        {
+            "name": "salt",
+            "quantity": "pinch",
+            "unit": "to taste"
+        },
+        {
+            "name": "chicken",
+            "quantity": "200",
+            "unit": "grams"
+        },
+        {
+            "name": "bread",
+            "quantity": "3",
+            "unit": "pieces"
+        }
+    ]
+}
+```

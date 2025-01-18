@@ -3,6 +3,7 @@ import csv
 import os
 import gpt
 import markdown
+import json
 import time
 
 app = Flask(__name__)
@@ -70,63 +71,148 @@ def generate_recipes():
         meal_type = request.form.get("meal_type")
         servings = request.form.get("servings")
 
-        # Generate the recipe using the new parameters
-        recipe_html = find_recipes(meal_type, servings)
-
         # Read ingredients from CSV
         with open(CSV_FILE, mode="r") as file:
             reader = csv.DictReader(file)
             ingredients = list(reader)
 
-        return render_template("index.html", ingredients=ingredients, recipe_html=recipe_html)
+        # Generate the recipe using the new parameters
+        recipe_html = find_recipes(ingredients, meal_type, servings)
+
+        return render_template(
+            "index.html",
+            ingredients=ingredients,
+            recipe_html=recipe_html # Pass to the template
+        )
     except Exception as e:
         flash(f"Error generating recipes: {str(e)}", "danger")
         return redirect(url_for("home"))
 
+def try_my_luck():
+    pass
 
-def find_recipes(meal_type, servings):
-    # Read ingredients from CSV
-    with open(CSV_FILE, mode="r") as file:
-        rows = list(csv.reader(file))
-
-    # Prepare prompt
+def find_recipes(ingredients, meal_type, servings):
+    # Prepare the prompt
     prompt = f"""
-    I have the following ingredients available:
-    {rows}
+        I have basic ingredients seasonings, oil and following ingredients available:
+        {ingredients}
 
-    I want to prepare a {meal_type} for {servings} servings.
-    Please provide a single recipe that fits these criteria. You don't need to use all ingredients.
-    The recipe should include:
+        I want to prepare a {meal_type} for {servings} servings. Please provide a single recipe that fits these criteria. You don't need to use all the ingredients.
 
-    1. A clear title for the dish.
-    2. A list of ingredients with their quantities.
-    3. Step-by-step instructions for preparation.
-    4. Each step should start with a numbered heading followed by details as plain text or subpoints.
-    5. The output must be in Markdown format.
+        The recipe should include:
+        1. A clear title for the dish.
+        2. A list of ingredients with their quantities.
+        3. Step-by-step instructions for preparation.
+        - Each step should start with a numbered heading followed by detailed explanations.
+        - Use subpoints for additional details or substeps under each main step.
+        4. The output must include a JSON object at the end, formatted as follows:
+        \\"\\"\\"json
+        {{
+            "ingredients_used": [
+                {{
+                    "name": "ingredient_name",
+                    "quantity": "amount",
+                    "unit": "measurement_unit"
+                }}
+            ]
+        }}
+        \\"\\"\\"
 
-    The recipe should:
-    - Be realistic and appropriate for {servings} servings. Adjust ingredient quantities accordingly.
-    - If the available ingredients are insufficient for the required servings, clearly state which ingredients are missing or insufficient.
-    - Suggest what additional ingredients and quantities are needed to meet the requirement for {servings} servings.
+        This JSON object should list only the ingredients used in the recipe, along with their quantities and units.
+        Ensure the recipe is realistic and appropriate for {servings} servings. If the available ingredients are insufficient for {servings} servings, mention this in the recipe and suggest additional quantities or ingredients needed.
 
-    Ensure the subpoints are indented and do not continue the main numbering.
-    Be realistic and don't invent recipes. If it doesn't exist, return that you didn't find anything.
-    """
+        The JSON object should appear at the end of the response and should not be referenced or mentioned elsewhere in the recipe.
+        """
 
     print(prompt)
 
-    if True:  # Replace with actual GPT call
-        return_string = gpt.ask_chat_gpt(prompt)
+    if True:
+        # Call GPT and save the response to a text file
+        result = gpt.ask_chat_gpt(prompt)
+        print(result)
         with open("recipe_output.txt", mode="w") as file:
-            file.write(return_string)
+            file.write(result)
 
-    time.sleep(2)
-    with open("recipe_output.txt", mode="r") as file:
-        saved_string = file.read()
+    else:
+        # Load the response from the text file
+        time.sleep(1)
+        with open("recipe_output.txt", mode="r") as file:
+            result = file.read()
 
+    markdown_content = result[:result.find("```json")].strip()
+    
     # Convert Markdown to HTML
-    html_string = markdown.markdown(saved_string, extensions=['extra', 'sane_lists'])
+    html_string = markdown.markdown(markdown_content, extensions=['extra', 'sane_lists'])
     return html_string
+
+ 
+
+@app.route("/make_recipe", methods=["POST"])
+def make_recipe():
+    print("Processing Make Recipe...")
+
+    # Read the recipe output from the file
+    try:
+        with open("recipe_output.txt", mode="r") as file:
+            result = file.read()
+
+        # Extract the JSON block from the response
+        json_start = result.find("```json") + len("```json")
+        json_end = result.find("```", json_start)
+        json_block = result[json_start:json_end].strip()
+
+        # Parse the JSON block
+        print("Extracted JSON Block:", json_block)
+        recipe_data = json.loads(json_block)
+        ingredients_used = recipe_data["ingredients_used"]
+
+    except (json.JSONDecodeError, ValueError, KeyError) as e:
+        print(f"Error extracting JSON from GPT response: {e}")
+        flash("Failed to process the recipe. Please try again.", "danger")
+        return redirect(url_for("home"))
+
+    # Read the current ingredients from the CSV
+    try:
+        with open(CSV_FILE, mode="r") as file:
+            reader = csv.DictReader(file)
+            ingredients = list(reader)
+        print("Current Ingredients:", ingredients)
+        print("Ingredients Used:", ingredients_used)
+
+        # Update the ingredients list by removing the used quantities
+        updated_ingredients = []
+        for ingredient in ingredients:
+            match = next((used for used in ingredients_used if used["name"].lower() == ingredient["Ingredient"].lower()), None)
+            if match:
+                # Subtract quantities if units match
+                if match["unit"].lower() == ingredient["Unit"].lower():
+                    remaining_quantity = float(ingredient["Quantity"]) - float(match["quantity"])
+                    if remaining_quantity > 0:
+                        updated_ingredients.append({
+                            "Ingredient": ingredient["Ingredient"],
+                            "Quantity": remaining_quantity,
+                            "Unit": ingredient["Unit"]
+                        })
+                    # Skip if quantity is zero or less
+                else:
+                    updated_ingredients.append(ingredient)
+            else:
+                # Keep the ingredient if it's not used
+                updated_ingredients.append(ingredient)
+
+        # Write the updated ingredients back to the CSV
+        with open(CSV_FILE, mode="w", newline="") as file:
+            writer = csv.DictWriter(file, fieldnames=["Ingredient", "Quantity", "Unit"])
+            writer.writeheader()
+            writer.writerows(updated_ingredients)
+
+        flash("Recipe made successfully! Ingredients updated.", "success")
+        return redirect(url_for("home"))
+
+    except Exception as e:
+        print(f"Error updating ingredients: {e}")
+        flash("Failed to update ingredients. Please try again.", "danger")
+        return redirect(url_for("home"))
 
 
 if __name__ == "__main__":

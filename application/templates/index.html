@@ -67,6 +67,7 @@
                 <h2>Find Your Recipe</h2>
                 <form method="POST" action="{{ url_for('generate_recipes') }}" id="recipe-form" class="form-container">
                     <div class="form-group">
+
                         <select id="meal_type" name="meal_type" class="form-control" required>
                             <option value="" disabled selected>Select meal type</option>
                             <option value="breakfast">Breakfast</option>
@@ -100,16 +101,16 @@
                 </div>
             {% endif %}
         
-            <!-- Recipe Display -->
             {% if recipe_html %}
-                <div class="recipe-content">
-                    {{ recipe_html|safe }}
-                </div>
+            <div class="recipe-content">
+                {{ recipe_html|safe }}
+            </div>
+            <form method="POST" action="{{ url_for('make_recipe') }}">
+                <button type="submit" class="btn btn-primary btn-lg">Make Recipe</button>
+            </form>
             {% endif %}
-        </section>
-        
-        
 
+        </section>
     </div>
 </body>
 </html>

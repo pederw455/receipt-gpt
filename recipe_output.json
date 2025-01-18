@@ -1,0 +1,62 @@
+### Cheesy Apple Omelette
+
+#### Ingredients
+- 2 apples, peeled, cored, and sliced
+- 20 dl milk
+- 4 eggs
+- 200 grams cheese, grated (ost)
+
+#### Instructions
+
+**1. Prepare the Apples**
+   - Slice the apples into thin pieces for an even cook.
+   - Set aside.
+
+**2. Beat the Eggs**
+   - Crack the 4 eggs into a bowl.
+   - Add 20 ml (2 dl) of milk.
+   - Whisk together until well combined.
+
+**3. Cook the Apples**
+   - In a non-stick frying pan, cook the sliced apples over medium heat until they are slightly soft.
+
+**4. Add the Egg Mixture**
+   - Pour the egg and milk mixture over the apples in the pan.
+   - Cook on medium-low heat, stirring occasionally, until the eggs begin to set but are still slightly runny on top.
+
+**5. Add the Cheese**
+   - Sprinkle the 200 grams of grated cheese evenly over the egg mixture.
+   - Cover the pan with a lid to help the cheese melt evenly and the top of the omelette to cook.
+
+**6. Serve the Omelette**
+   - Once the cheese is fully melted and the eggs are cooked through, remove from heat.
+   - Slice the omelette into two portions and serve hot.
+
+```json
+{
+  "ingredients_used": [
+    {
+      "name": "apple",
+      "quantity": "2",
+      "unit": "pieces"
+    },
+    {
+      "name": "milk",
+      "quantity": "20",
+      "unit": "dl"
+    },
+    {
+      "name": "egg",
+      "quantity": "4",
+      "unit": "pieces"
+    },
+    {
+      "name": "ost (cheese)",
+      "quantity": "200",
+      "unit": "grams"
+    }
+  ]
+}
+```
+
+This recipe is realistic for a light lunch for two servings, using the available ingredients.
