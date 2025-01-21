@@ -67,7 +67,6 @@
                 <h2>Find Your Recipe</h2>
                 <form method="POST" action="{{ url_for('generate_recipes') }}" id="recipe-form" class="form-container">
                     <div class="form-group">
-
                         <select id="meal_type" name="meal_type" class="form-control" required>
                             <option value="" disabled selected>Select meal type</option>
                             <option value="breakfast">Breakfast</option>
@@ -87,7 +86,13 @@
                     </div>
                 
                     <div class="form-group text-center">
-                        <button type="submit" class="btn btn-primary btn-lg" id="find-recipe-btn">Find Recipe!</button>
+                        <!-- Buttons placed side by side -->
+                        <button type="submit" name="action" value="find_recipe" class="btn btn-primary btn-lg" id="find-recipe-btn">
+                            Find Recipe!
+                        </button>
+                        <button type="submit" name="action" value="try_my_luck" class="btn btn-success btn-lg" id="try-my-luck-btn">
+                            Try My Luck
+                        </button>
                     </div>
                 </form>
                             
@@ -116,12 +121,16 @@
 </html>
 
 <script>
-    document.getElementById('recipe-form').addEventListener('submit', function () {
+    document.getElementById('recipe-form').addEventListener('submit', function (event) {
         // Show the loading indicator
         document.getElementById('loading-indicator').style.display = 'block';
 
-        // Disable the button to prevent multiple submissions
-        document.getElementById('find-recipe-btn').disabled = true;
+        // Prevent multiple submissions using a flag, not by disabling the button
+        if (this.dataset.submitted) {
+            event.preventDefault();
+            return false;
+        }
+        this.dataset.submitted = true;
     });
 </script>
 
