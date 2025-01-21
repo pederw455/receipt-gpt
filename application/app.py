@@ -67,29 +67,73 @@ def delete():
 @app.route("/generate_recipes", methods=["POST"])
 def generate_recipes():
     try:
-        # Retrieve meal type and servings from the form
+        # Retrieve form data
         meal_type = request.form.get("meal_type")
         servings = request.form.get("servings")
+        action = request.form.get("action")
 
         # Read ingredients from CSV
         with open(CSV_FILE, mode="r") as file:
             reader = csv.DictReader(file)
             ingredients = list(reader)
-
-        # Generate the recipe using the new parameters
-        recipe_html = find_recipes(ingredients, meal_type, servings)
+        print(action)
+        if action == "find_recipe":
+            # Generate the recipe based on the inputs
+            recipe_html = find_recipes(ingredients, meal_type, servings)
+        elif action == "try_my_luck":
+            # Generate a random recipe
+            recipe_html = try_my_luck(ingredients, meal_type, servings)
 
         return render_template(
             "index.html",
             ingredients=ingredients,
-            recipe_html=recipe_html # Pass to the template
+            recipe_html=recipe_html,  # Pass the result to the template
         )
     except Exception as e:
         flash(f"Error generating recipes: {str(e)}", "danger")
         return redirect(url_for("home"))
 
-def try_my_luck():
-    pass
+def try_my_luck(ingredients, meal_type, servings):
+    # Prepare the prompt
+    prompt = f"""
+    I have the following ingredients available: basic seasonings, oil, and these specific items:
+    {ingredients}
+
+    I want to prepare a {meal_type} for {servings} servings. The recipe should be a real, authentic dish. 
+    While you don’t need to use all the available ingredients, try to incorporate as many as possible. 
+    If additional ingredients or more of the existing ones are needed, include them in a "Shopping Cart" section formatted as:
+    - [amount] [unit] - [ingredient]
+
+    The recipe should include:
+    1. A clear and descriptive title.
+    2. A detailed list of ingredients, including quantities and measurements.
+    3. Step-by-step preparation instructions:
+    - Each step should be clearly numbered.
+    - Include optional tips or variations where relevant.
+    4. A "Shopping Cart" section listing any missing or additional ingredients required in this format:
+    - [amount] [unit] - [ingredient]
+
+    Ensure the recipe is easy to follow, realistic for the specified servings, and includes precise ingredient quantities. 
+    If adjustments are necessary for the servings, add those ingredients to the shopping cart. Provide practical and authentic suggestions.
+    """
+    print(prompt)
+
+    if True:
+        # Call GPT and save the response to a text file
+        result = gpt.ask_chat_gpt(prompt)
+        print(result)
+        with open("try_my_luck_output.txt", mode="w") as file:
+            file.write(result)
+
+    else:
+        # Load the response from the text file
+        time.sleep(1)
+        with open("try_my_luck_output.txt", mode="r") as file:
+            result = file.read()
+    
+    # Convert Markdown to HTML
+    html_string = markdown.markdown(result, extensions=['extra', 'sane_lists'])
+    return html_string
 
 def find_recipes(ingredients, meal_type, servings):
     # Prepare the prompt
