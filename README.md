@@ -1,90 +1,56 @@
+# Gord1-RamsAI
 
-# Python Project Template
+## Introduction
+Gord1-RamsAI is a web application that helps users generate recipes based on available ingredients. Users can input ingredients, specify the type of meal they want, and let the app generate recipes using OpenAI's GPT. The application provides a user-friendly interface for adding and removing ingredients, and it suggests recipes that users can prepare with the given ingredients.
 
-This is a template for creating Python projects with Docker, Poetry, and Git, allowing for easy setup and consistency across projects. Follow the steps below to clone this template and initialize a new project.
+## Getting Started
+To run Gord1-RamsAI, follow these steps:
 
----
+### 1. Open in a Container
+Ensure you have Docker installed. Run the following command to build and start the container:
 
-## 1. Clone the Template Repository
-
-Start by cloning this template repository to create your new project:
-
-```bash
-git clone git@github.com:pederw455/python-project-tamplete.git new-project-name
-cd new-project-name
+```sh
+docker-compose up --build
 ```
 
-> Replace `new-project-name` with your desired project name.
+If you are running it manually, ensure your Python environment is set up correctly.
 
----
+### 2. Install Dependencies
+Once inside the project folder, install dependencies using Poetry:
 
-## 2. Open i VS code and run Docker
-Open the folder in VS code:
-```bash
-code .
-```
-And after that reopen i Container
-
-   - `Ctrl + Shift + P` > **Remote-Containers: Reopen in Container**
-
-
-## 3. Remove Existing Git History
-
-Since this is a new project, remove the existing Git history associated with the template:
-
-```bash
-rm -rf .git
+```sh
+poetry install
 ```
 
----
+Activate the virtual environment:
 
-## 4. Initialize a New Git Repository
-
-Initialize a new Git repository for this project:
-
-```bash
-git init
-git add .
-git commit -m "Initial commit for new project"
+```sh
+poetry shell
 ```
 
----
+### 3. Add Your OpenAI API Key
+Before running the application, you need to make an `.env` following the `.env_example` file and add your OpenAI API key:
 
-## 5. Set Up a New Remote Repository
-
-1. Create a new repository for this project on GitHub (or your preferred Git platform).
-2. Add the new remote repository as the origin:
-
-   ```bash
-    git remote add origin https://github.com/pederw455/new-project-name.git
-    git branch -M main
-    git push -u origin main
-   ```
-
-> Replace `new-project-name` with your actual repository name.
-
----
-
-
-## 6. Install Dependencies with Poetry
-
-If additional dependencies are needed, use Poetry to manage and install them within the Docker environment. For example:
-
-```bash
-poetry add <package-name>
+```sh
+echo "OPENAI_API_KEY=your_api_key_here" > .env
 ```
 
----
+Replace `your_api_key_here` with your actual OpenAI API key.
 
-## 7. Set Up Environment Variables
+### 4. Run the Application
+Start the Flask application by running:
 
-This project template includes a `.env.example` file for setting environment variables. Set up your own `.env` file based on this template:
-
-```bash
-cp .env.example .env
+```sh
+python application/app.py
 ```
 
-Edit `.env` with any specific values your project requires.
+### 5. Open in a Browser
+Once the application in a browser
 
----
+
+## Features
+- Add and remove ingredients
+- Generate recipes based on available ingredients
+- Get random recipe suggestions
+- Interactive and user-friendly UI
 
