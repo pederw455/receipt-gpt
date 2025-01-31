@@ -1,5 +1,5 @@
 {
-    "name": "Python Project Template",
+    "name": "Receipt-GPT",
     "build": {
       "dockerfile": "Dockerfile",
       "context": ".."
