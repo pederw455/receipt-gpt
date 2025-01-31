@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "python-project-template"
+name = "receipt-gpt"
 version = "0.1.0"
 description = ""
 authors = ["Peder Ward"]
 readme = "README.md"
-packages = [{include = "python_project_template"}]
+packages = [{ include = "application" }]
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -16,7 +16,6 @@ flask = "^3.1.0"
 openai = "^1.59.7"
 python-dotenv = "^1.0.1"
 markdown = "^3.7"
-
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.3"

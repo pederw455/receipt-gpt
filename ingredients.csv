@@ -1,5 +1,6 @@
 Ingredient,Quantity,Unit
-cheese,50.0,grams
-egg,1.0,pieces
-salt ,200,grams
-bread,4.0,pieces
+Cheese,500,grams
+Chicken,500,grams
+Bread,5,pieces
+Milk,5,dl
+Egg,6,pieces
