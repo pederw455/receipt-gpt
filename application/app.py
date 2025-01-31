@@ -177,7 +177,7 @@ def find_recipes(ingredients, meal_type, servings):
         with open("recipe_output.txt", mode="w") as file:
             file.write(result)
 
-    else:
+    else: # Used for testing
         # Load the response from the text file
         time.sleep(1)
         with open("recipe_output.txt", mode="r") as file:
